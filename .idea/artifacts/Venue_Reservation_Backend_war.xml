@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Venue_Reservation_Backend:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Venue_Reservation_Backend</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="venue_reservation_backend.war">
+      <element id="artifact" artifact-name="Venue_Reservation_Backend:war exploded" />
+    </root>
+  </artifact>
+</component>
