@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ecnuer996.dao.ReservationMapper">
+  <resultMap id="BaseResultMap" type="cn.ecnuer996.bean.Reservation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="begin_time" jdbcType="TIME" property="beginTime" />
+    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, site_id, user_id, book_time, date, begin_time, end_time, state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reservation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reservation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ecnuer996.bean.Reservation">
+    insert into reservation (id, site_id, user_id, 
+      book_time, date, begin_time, 
+      end_time, state)
+    values (#{id,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{bookTime,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, #{beginTime,jdbcType=TIME}, 
+      #{endTime,jdbcType=TIME}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ecnuer996.bean.Reservation">
+    insert into reservation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bookTime != null">
+        book_time,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIME},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIME},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ecnuer996.bean.Reservation">
+    update reservation
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bookTime != null">
+        book_time = #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIME},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIME},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ecnuer996.bean.Reservation">
+    update reservation
+    set site_id = #{siteId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      book_time = #{bookTime,jdbcType=TIMESTAMP},
+      date = #{date,jdbcType=DATE},
+      begin_time = #{beginTime,jdbcType=TIME},
+      end_time = #{endTime,jdbcType=TIME},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

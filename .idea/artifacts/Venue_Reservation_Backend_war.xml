@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="venue_reservation_backend.war">
+    <root id="archive" name="Venue_Reservation_Backend.war">
       <element id="artifact" artifact-name="Venue_Reservation_Backend:war exploded" />
     </root>
   </artifact>
