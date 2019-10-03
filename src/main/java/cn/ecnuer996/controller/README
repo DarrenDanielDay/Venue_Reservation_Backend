@@ -1,0 +1,18 @@
+本文件用于整理Controller目录下的每个API信息，仅用于开发阶段的交流
+
+√表示已实现，×表示待实现
+ReservationController:
+√   ./Venue_Reservation_Backend_war/venue?name=[参数1]
+    Description:    场馆名模糊查询
+    Pre-Value:      [参数1]=待查询场馆名
+    Post-Value:     包含[参数1]的所有场馆记录
+√   ./Venue_Reservation_Backend_war/site?venue_id=[参数1]       !暂时备注[待处理]:由前端决定需要传入场馆id还是场馆name
+    Description:    搜索给定场馆的所有场地
+    Pre-Value:      [参数1]=待搜索场馆id
+    Post-Value:     id等于[参数1]的场馆的所有场地记录
+UserController:
+×   ./Venue_Reservation_Backend_war/register?venue_id=1
+√   ./Venue_Reservation_Backend_war/login?usr=[参数1]&psw=[参数2]&method=[参数3]
+    Description:    检查用户名和密码是否配对，目前登录方式只支持参数0
+    Pre-Value:      [参数1]=用户名，[参数2]=密码，[参数]=登录方式
+    Post-Value:     存在返回相应用户记录，否则返回特定用户记录[id=-1,nickname=emptyInformation]

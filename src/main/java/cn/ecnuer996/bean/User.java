@@ -1,5 +1,7 @@
 package cn.ecnuer996.bean;
 
+import org.apache.taglibs.standard.extra.spath.Step;
+
 public class User {
     private Integer id;
 
@@ -10,6 +12,17 @@ public class User {
     private String phone;
 
     private String email;
+
+    public User() {
+
+    }
+
+    public User(String nickname, String avatar, String phone,String email) {
+        this.nickname = nickname;
+        this.avatar = avatar;
+        this.phone = phone;
+        this.email = email;
+    }
 
     public Integer getId() {
         return id;

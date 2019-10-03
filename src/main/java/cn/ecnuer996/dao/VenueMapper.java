@@ -1,6 +1,9 @@
 package cn.ecnuer996.dao;
 
 import cn.ecnuer996.bean.Venue;
+import cn.ecnuer996.bean.Site;
+
+import java.util.ArrayList;
 
 public interface VenueMapper {
     int deleteByPrimaryKey(Integer id);
@@ -10,6 +13,10 @@ public interface VenueMapper {
     int insertSelective(Venue record);
 
     Venue selectByPrimaryKey(Integer id);
+
+    ArrayList<Venue> selectByVenueName(String name);
+
+    ArrayList<Site> selectByVenueId(int venue_id);
 
     int updateByPrimaryKeySelective(Venue record);
 
