@@ -6,4 +6,6 @@ public interface UserAuthMapper {
     int insert(UserAuth record);
 
     int insertSelective(UserAuth record);
+
+    UserAuth login(String nickname, String password);
 }

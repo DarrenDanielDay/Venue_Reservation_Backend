@@ -14,7 +14,7 @@
     id, name, address, introduction, phone, begin_time, end_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from venue
     where id = #{id,jdbcType=INTEGER}

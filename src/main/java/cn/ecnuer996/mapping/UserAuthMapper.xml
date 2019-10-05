@@ -7,6 +7,15 @@
     <result column="identifier" jdbcType="VARCHAR" property="identifier" />
     <result column="credential" jdbcType="VARCHAR" property="credential" />
   </resultMap>
+  <sql id="Base_Column_List">
+    user_id, identity_type, identifier, credential
+  </sql>
+  <select id="login" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_auth2
+    where identity_type = 'nickname' and identifier = #{0} and credential = #{1}
+  </select>
   <insert id="insert" parameterType="cn.ecnuer996.bean.UserAuth">
     insert into user_auth2 (user_id, identity_type, identifier, 
       credential)

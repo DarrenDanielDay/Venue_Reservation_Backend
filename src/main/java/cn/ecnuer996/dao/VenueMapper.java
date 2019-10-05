@@ -16,8 +16,6 @@ public interface VenueMapper {
 
     ArrayList<Venue> selectByVenueName(String name);
 
-    ArrayList<Site> selectByVenueId(int venue_id);
-
     int updateByPrimaryKeySelective(Venue record);
 
     int updateByPrimaryKey(Venue record);
