@@ -28,4 +28,14 @@
       </if>
     </trim>
   </insert>
+  <select id="getVenueImagesByVenueId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select image
+    from venue_image
+    where venue_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getVenueCoverByVenueId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select image
+    from venue_image
+    where venue_id = #{id,jdbcType=INTEGER} limit 1
+  </select>
 </mapper>

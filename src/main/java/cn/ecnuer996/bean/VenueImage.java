@@ -20,4 +20,5 @@ public class VenueImage {
     public void setImage(String image) {
         this.image = image == null ? null : image.trim();
     }
+
 }

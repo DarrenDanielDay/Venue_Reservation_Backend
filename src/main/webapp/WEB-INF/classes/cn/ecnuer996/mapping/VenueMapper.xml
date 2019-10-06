@@ -25,6 +25,11 @@
     from venue
     where name like #{name,jdbcType=VARCHAR}
   </select>
+  <select id="selectAllVenues" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from venue
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from venue
     where id = #{id,jdbcType=INTEGER}

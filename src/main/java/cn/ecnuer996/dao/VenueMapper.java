@@ -4,6 +4,7 @@ import cn.ecnuer996.bean.Venue;
 import cn.ecnuer996.bean.Site;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface VenueMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,7 +17,10 @@ public interface VenueMapper {
 
     ArrayList<Venue> selectByVenueName(String name);
 
+    List<Venue> selectAllVenues();
+
     int updateByPrimaryKeySelective(Venue record);
 
     int updateByPrimaryKey(Venue record);
+
 }
