@@ -7,5 +7,7 @@ public interface UserAuthMapper {
 
     int insertSelective(UserAuth record);
 
-    UserAuth login(String nickname, String password);
+    UserAuth registerJudge(String nickname);
+
+    UserAuth loginJudge(String nickname, String password);
 }

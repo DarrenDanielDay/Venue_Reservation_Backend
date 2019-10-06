@@ -17,6 +17,12 @@
     from user_t2
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByNickname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_t2
+    where nickname = #{nickname,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_t2
     where id = #{id,jdbcType=INTEGER}

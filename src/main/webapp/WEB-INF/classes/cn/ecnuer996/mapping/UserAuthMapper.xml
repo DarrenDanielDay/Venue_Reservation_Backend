@@ -10,7 +10,13 @@
   <sql id="Base_Column_List">
     user_id, identity_type, identifier, credential
   </sql>
-  <select id="login" resultMap="BaseResultMap">
+  <select id="registerJudge" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_auth2
+    where identity_type = 'nickname' and identifier = #{0}
+  </select>
+  <select id="loginJudge" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from user_auth2

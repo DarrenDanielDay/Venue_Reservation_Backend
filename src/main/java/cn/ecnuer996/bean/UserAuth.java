@@ -9,6 +9,17 @@ public class UserAuth {
 
     private String credential;
 
+    public UserAuth(){
+
+    }
+
+    public UserAuth(String identityType,String identifier,String credential){
+        this.userId = null;
+        this.identityType = identityType;
+        this.identifier = identifier;
+        this.credential = credential;
+    }
+
     public Integer getUserId() {
         return userId;
     }

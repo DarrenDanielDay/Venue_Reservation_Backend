@@ -16,4 +16,12 @@ public class UserService {
         return userDao.selectByPrimaryKey(id);
     }
 
+    public User getUserByName(String nickname){
+        return userDao.selectByNickname(nickname);
+    }
+
+    public int insert(User user){
+        return userDao.insert(user);
+    }
+
 }
