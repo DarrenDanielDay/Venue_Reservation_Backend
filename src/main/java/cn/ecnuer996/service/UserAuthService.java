@@ -1,6 +1,5 @@
 package cn.ecnuer996.service;
 
-import cn.ecnuer996.bean.User;
 import cn.ecnuer996.bean.UserAuth;
 import cn.ecnuer996.dao.UserAuthMapper;
 import org.springframework.beans.factory.annotation.Autowired;
