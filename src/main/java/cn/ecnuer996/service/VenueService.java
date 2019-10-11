@@ -2,7 +2,6 @@ package cn.ecnuer996.service;
 
 import cn.ecnuer996.bean.Venue;
 import cn.ecnuer996.bean.Site;
-import cn.ecnuer996.bean.VenueImage;
 import cn.ecnuer996.dao.SiteMapper;
 import cn.ecnuer996.dao.VenueImageMapper;
 import cn.ecnuer996.dao.VenueMapper;
@@ -11,7 +10,6 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.json.JsonObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

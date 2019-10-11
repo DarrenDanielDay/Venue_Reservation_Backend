@@ -1,7 +1,6 @@
 package cn.ecnuer996.dao;
 
 import cn.ecnuer996.bean.Venue;
-import cn.ecnuer996.bean.Site;
 
 import java.util.ArrayList;
 import java.util.List;

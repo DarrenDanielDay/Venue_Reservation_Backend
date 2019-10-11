@@ -10,11 +10,19 @@ ReservationController:
     Description:    搜索给定场馆的所有场地
     Pre-Value:      [参数1]=待搜索场馆id
     Post-Value:     id等于[参数1]的场馆的所有场地记录
+√   https://ecnuer996.cn/MeetHere/api/venue-detail?venue_id=[参数1]
+    Description:    搜索给定场馆的基本信息
+    Pre-Value:      [参数1]=待搜索场馆id
+    Post-Value:     id等于[参数1]的场馆的基本信息
+√   https://ecnuer996.cn/MeetHere/api/all-venues?
+    Description:    获取所有场地的基本信息
+    Pre-Value:      None
+    Post-Value:     所有场地的基本信息
 UserAuthController:
 √   https://ecnuer996.cn/MeetHere/api/register?usr=[参数1]&psw=[参数2]&method=[参数3]
     Description:    注册新用户，目前注册方式只支持参数0
     Pre-Value:      [参数1]=用户名，[参数2]=密码，[参数]=注册方式
-    Post-Value:     用户名重复返回特定用户记录[id=-2,nickname=redundantRegister]，否则注册用户记录
+    Post-Value:     用户名重复返回特定用户记录[id=-2,nickname=redundantRegister]，否则返回注册用户记录
 √   https://ecnuer996.cn/MeetHere/api/login?usr=[参数1]&psw=[参数2]&method=[参数3]
     Description:    检查用户名和密码是否配对，目前登录方式只支持参数0
     Pre-Value:      [参数1]=用户名，[参数2]=密码，[参数]=登录方式
