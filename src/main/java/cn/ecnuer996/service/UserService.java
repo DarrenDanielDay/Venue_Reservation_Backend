@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public int insert(User user){
-        return userDao.insert(user);
+        return userDao.insertSelective(user);
     }
 
 }

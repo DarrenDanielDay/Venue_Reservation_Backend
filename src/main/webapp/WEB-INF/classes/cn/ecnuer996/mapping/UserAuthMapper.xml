@@ -22,6 +22,18 @@
     from user_auth2
     where identity_type = 'nickname' and identifier = #{0} and credential = #{1}
   </select>
+  <select id="selectNicknameLoginAuth" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_auth2
+    where user_id=#{id,jdbcType=INTEGER} and identity_type = 'nickname'
+  </select>
+  <select id="selectBySignInMethod" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_auth2
+    where identity_type = #{0} and identifier = #{1}
+  </select>
   <insert id="insert" parameterType="cn.ecnuer996.bean.UserAuth">
     insert into user_auth2 (user_id, identity_type, identifier, 
       credential)
