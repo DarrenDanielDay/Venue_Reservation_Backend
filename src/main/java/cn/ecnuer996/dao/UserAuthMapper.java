@@ -12,7 +12,7 @@ public interface UserAuthMapper {
     UserAuth loginJudge(String nickname, String password);
 
     //此函数寻找nickname登陆方式的验证信息
-    public UserAuth selectNicknameLoginAuth(Integer id);
+    UserAuth selectNicknameLoginAuth(Integer id);
     //根据登录方式和对应ID来获取验证信息
-    public UserAuth selectBySignInMethod(String method,String identifier);
+    UserAuth selectBySignInMethod(String method,String identifier);
 }
