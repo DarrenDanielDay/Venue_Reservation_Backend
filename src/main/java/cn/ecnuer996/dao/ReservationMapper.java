@@ -2,6 +2,9 @@ package cn.ecnuer996.dao;
 
 import cn.ecnuer996.bean.Reservation;
 
+import java.util.Date;
+import java.util.List;
+
 public interface ReservationMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -10,6 +13,8 @@ public interface ReservationMapper {
     int insertSelective(Reservation record);
 
     Reservation selectByPrimaryKey(Integer id);
+
+    List<Reservation> selectBySiteIdAndDate(Integer siteId, Date date);
 
     int updateByPrimaryKeySelective(Reservation record);
 

@@ -21,6 +21,12 @@
     from reservation
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectBySiteIdAndDate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reservation
+    where site_id = #{0,jdbcType=INTEGER} and date=#{1,jdbcType=DATE}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from reservation
     where id = #{id,jdbcType=INTEGER}
