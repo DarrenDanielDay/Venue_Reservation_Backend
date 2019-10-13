@@ -13,6 +13,8 @@ public class Reservation {
 
     private Date date;
 
+    private Float cost;
+
     private Integer beginTime;
 
     private Integer endTime;
@@ -59,6 +61,14 @@ public class Reservation {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Float getCost() {
+        return cost;
+    }
+
+    public void setCost(Float cost) {
+        this.cost = cost;
     }
 
     public Integer getBeginTime() {

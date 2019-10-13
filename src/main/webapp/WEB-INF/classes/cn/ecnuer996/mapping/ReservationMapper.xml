@@ -7,13 +7,14 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
     <result column="date" jdbcType="DATE" property="date" />
+    <result column="cost" jdbcType="REAL" property="cost" />
     <result column="begin_time" jdbcType="INTEGER" property="beginTime" />
     <result column="end_time" jdbcType="INTEGER" property="endTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="comment" jdbcType="VARCHAR" property="comment" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, site_id, user_id, book_time, date, begin_time, end_time, state, comment
+    id, site_id, user_id, book_time, date, cost, begin_time, end_time, state, comment
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -33,11 +34,11 @@
   </delete>
   <insert id="insert" parameterType="cn.ecnuer996.bean.Reservation">
     insert into reservation (id, site_id, user_id, 
-      book_time, date, begin_time, 
+      book_time, date, cost, begin_time, 
       end_time, state, comment
       )
     values (#{id,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{bookTime,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, #{beginTime,jdbcType=INTEGER}, 
+      #{bookTime,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, #{cost,jdbcType=REAL}, #{beginTime,jdbcType=INTEGER}, 
       #{endTime,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}
       )
   </insert>
@@ -58,6 +59,9 @@
       </if>
       <if test="date != null">
         date,
+      </if>
+      <if test="cost != null">
+        cost,
       </if>
       <if test="beginTime != null">
         begin_time,
@@ -88,6 +92,9 @@
       <if test="date != null">
         #{date,jdbcType=DATE},
       </if>
+      <if test="cost != null">
+        #{cost,jdbcType=REAL},
+      </if>
       <if test="beginTime != null">
         #{beginTime,jdbcType=INTEGER},
       </if>
@@ -117,6 +124,9 @@
       <if test="date != null">
         date = #{date,jdbcType=DATE},
       </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=REAL},
+      </if>
       <if test="beginTime != null">
         begin_time = #{beginTime,jdbcType=INTEGER},
       </if>
@@ -138,6 +148,7 @@
       user_id = #{userId,jdbcType=INTEGER},
       book_time = #{bookTime,jdbcType=TIMESTAMP},
       date = #{date,jdbcType=DATE},
+      cost = #{cost,jdbcType=REAL},
       begin_time = #{beginTime,jdbcType=INTEGER},
       end_time = #{endTime,jdbcType=INTEGER},
       state = #{state,jdbcType=INTEGER},

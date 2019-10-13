@@ -113,6 +113,7 @@ public class VenueService {
             JSONObject siteTime=new JSONObject();
             siteTime.put("period",printPeriod(beginMinutes,i));
             siteTime.put("bookable",timeList[i]);
+            siteTime.put("periodId",i);
             siteTimes.add(siteTime);
         }
         ret.put("siteTimes",siteTimes);

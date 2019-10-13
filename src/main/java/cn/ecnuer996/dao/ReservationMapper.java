@@ -14,9 +14,10 @@ public interface ReservationMapper {
 
     Reservation selectByPrimaryKey(Integer id);
 
-    List<Reservation> selectBySiteIdAndDate(Integer siteId, Date date);
+    List<Reservation> selectBySiteIdAndDate(int siteId, Date date);
 
     int updateByPrimaryKeySelective(Reservation record);
 
     int updateByPrimaryKey(Reservation record);
+
 }
