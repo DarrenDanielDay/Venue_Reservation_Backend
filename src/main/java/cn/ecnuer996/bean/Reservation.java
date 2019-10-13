@@ -13,11 +13,13 @@ public class Reservation {
 
     private Date date;
 
-    private Date beginTime;
+    private Integer beginTime;
 
-    private Date endTime;
+    private Integer endTime;
 
     private Integer state;
+
+    private String comment;
 
     public Integer getId() {
         return id;
@@ -59,19 +61,19 @@ public class Reservation {
         this.date = date;
     }
 
-    public Date getBeginTime() {
+    public Integer getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(Integer beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public Integer getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Integer endTime) {
         this.endTime = endTime;
     }
 
@@ -81,5 +83,13 @@ public class Reservation {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 }

@@ -31,7 +31,7 @@
   <select id="selectBySignInMethod" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from user_auth2  
+    from user_auth2
     where identity_type = #{0} and identifier = #{1}
   </select>
   <insert id="insert" parameterType="cn.ecnuer996.bean.UserAuth">
