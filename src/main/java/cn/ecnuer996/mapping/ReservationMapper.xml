@@ -28,6 +28,19 @@
     from reservation
     where site_id = #{0,jdbcType=INTEGER} and date=#{1,jdbcType=DATE}
   </select>
+  <select id="selectLatestReservationByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reservation
+    where user_id = #{0,jdbcType=INTEGER}
+    order by id desc limit 1
+  </select>
+<!--  <select id="selectByUserIdAndBookTime" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from reservation-->
+<!--    where user_id = #{0} and book_time=#{1} limit 1-->
+<!--  </select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from reservation
     where id = #{id,jdbcType=INTEGER}
