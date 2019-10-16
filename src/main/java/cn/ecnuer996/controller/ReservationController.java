@@ -2,7 +2,10 @@ package cn.ecnuer996.controller;
 
 import cn.ecnuer996.bean.Reservation;
 import cn.ecnuer996.bean.Site;
+import cn.ecnuer996.bean.User;
 import cn.ecnuer996.bean.Venue;
+import cn.ecnuer996.service.ReservationService;
+import cn.ecnuer996.service.UserService;
 import cn.ecnuer996.service.VenueService;
 import cn.ecnuer996.transfer.ReservationDetail;
 import com.alibaba.fastjson.JSONObject;
@@ -24,7 +27,11 @@ import java.util.TimeZone;
 public class ReservationController {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private VenueService venueService;
+    @Autowired
+    private ReservationService reservationService;
 
     @RequestMapping(value="/venue")
     public ArrayList<Venue> getVenues(HttpServletRequest request){
@@ -106,6 +113,25 @@ public class ReservationController {
             System.out.println(bookTime.getTime());
         }catch(ParseException pe){
             ;
+        }
+        return response;
+    }
+
+    @RequestMapping(value="/orders",method=RequestMethod.POST)
+    public JSONObject searchOrders(@RequestBody JSONObject postBody) {
+        JSONObject response = new JSONObject();
+        int userId = postBody.getInteger("id");
+        User user = userService.getUserById(userId);
+        if(user.getId() < 0){
+            response.put("code",250);
+            response.put("results","illegal userId");
+            response.put("message","你传了个假用户,拒绝");
+        }
+        else{
+            List<Reservation> reservations = reservationService.getReservationByUserId(userId);
+            response.put("code",200);
+            response.put("result",reservations);
+            response.put("messages","查询成功");
         }
         return response;
     }

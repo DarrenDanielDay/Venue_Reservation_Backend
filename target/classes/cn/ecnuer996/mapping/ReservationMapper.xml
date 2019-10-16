@@ -7,12 +7,14 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
     <result column="date" jdbcType="DATE" property="date" />
-    <result column="begin_time" jdbcType="TIME" property="beginTime" />
-    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="cost" jdbcType="REAL" property="cost" />
+    <result column="begin_time" jdbcType="INTEGER" property="beginTime" />
+    <result column="end_time" jdbcType="INTEGER" property="endTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, site_id, user_id, book_time, date, begin_time, end_time, state
+    id, site_id, user_id, book_time, date, cost, begin_time, end_time, state, comment
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,17 +22,44 @@
     from reservation
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reservation
+    where id = #{user_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectBySiteIdAndDate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reservation
+    where site_id = #{0,jdbcType=INTEGER} and date=#{1,jdbcType=DATE}
+  </select>
+  <select id="selectLatestReservationByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reservation
+    where user_id = #{0,jdbcType=INTEGER}
+    order by id desc limit 1
+  </select>
+<!--  <select id="selectByUserIdAndBookTime" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from reservation-->
+<!--    where user_id = #{0} and book_time=#{1} limit 1-->
+<!--  </select>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from reservation
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.ecnuer996.bean.Reservation">
     insert into reservation (id, site_id, user_id, 
-      book_time, date, begin_time, 
-      end_time, state)
+      book_time, date, cost, begin_time, 
+      end_time, state, comment
+      )
     values (#{id,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{bookTime,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, #{beginTime,jdbcType=TIME}, 
-      #{endTime,jdbcType=TIME}, #{state,jdbcType=INTEGER})
+      #{bookTime,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, #{cost,jdbcType=REAL}, #{beginTime,jdbcType=INTEGER}, 
+      #{endTime,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.ecnuer996.bean.Reservation">
     insert into reservation
@@ -50,6 +79,9 @@
       <if test="date != null">
         date,
       </if>
+      <if test="cost != null">
+        cost,
+      </if>
       <if test="beginTime != null">
         begin_time,
       </if>
@@ -58,6 +90,9 @@
       </if>
       <if test="state != null">
         state,
+      </if>
+      <if test="comment != null">
+        comment,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -76,14 +111,20 @@
       <if test="date != null">
         #{date,jdbcType=DATE},
       </if>
+      <if test="cost != null">
+        #{cost,jdbcType=REAL},
+      </if>
       <if test="beginTime != null">
-        #{beginTime,jdbcType=TIME},
+        #{beginTime,jdbcType=INTEGER},
       </if>
       <if test="endTime != null">
-        #{endTime,jdbcType=TIME},
+        #{endTime,jdbcType=INTEGER},
       </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -102,14 +143,20 @@
       <if test="date != null">
         date = #{date,jdbcType=DATE},
       </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=REAL},
+      </if>
       <if test="beginTime != null">
-        begin_time = #{beginTime,jdbcType=TIME},
+        begin_time = #{beginTime,jdbcType=INTEGER},
       </if>
       <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIME},
+        end_time = #{endTime,jdbcType=INTEGER},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -120,9 +167,11 @@
       user_id = #{userId,jdbcType=INTEGER},
       book_time = #{bookTime,jdbcType=TIMESTAMP},
       date = #{date,jdbcType=DATE},
-      begin_time = #{beginTime,jdbcType=TIME},
-      end_time = #{endTime,jdbcType=TIME},
-      state = #{state,jdbcType=INTEGER}
+      cost = #{cost,jdbcType=REAL},
+      begin_time = #{beginTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

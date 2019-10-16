@@ -22,6 +22,12 @@
     from reservation
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from reservation
+    where id = #{user_id,jdbcType=INTEGER}
+  </select>
   <select id="selectBySiteIdAndDate" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
