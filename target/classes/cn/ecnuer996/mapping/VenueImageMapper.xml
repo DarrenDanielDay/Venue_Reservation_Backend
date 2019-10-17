@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ecnuer996.dao.VenueImageMapper">
+  <resultMap id="BaseResultMap" type="cn.ecnuer996.bean.VenueImage">
+    <result column="venue_id" jdbcType="INTEGER" property="venueId" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.ecnuer996.bean.VenueImage">
+    insert into venue_image (venue_id, image)
+    values (#{venueId,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ecnuer996.bean.VenueImage">
+    insert into venue_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venueId != null">
+        venue_id,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venueId != null">
+        #{venueId,jdbcType=INTEGER},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="getVenueImagesByVenueId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select image
+    from venue_image
+    where venue_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getVenueCoverByVenueId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select image
+    from venue_image
+    where venue_id = #{id,jdbcType=INTEGER} limit 1
+  </select>
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ecnuer996.dao.SiteMapper">
+  <resultMap id="BaseResultMap" type="cn.ecnuer996.bean.Site">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="venue_id" jdbcType="INTEGER" property="venueId" />
+    <result column="intruction" jdbcType="VARCHAR" property="intruction" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="price" jdbcType="REAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, venue_id, intruction, image, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from site
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByVenueId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from site
+    where venue_id = #{venue_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from site
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ecnuer996.bean.Site">
+    insert into site (id, name, venue_id, 
+      intruction, image, price
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{venueId,jdbcType=INTEGER}, 
+      #{intruction,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{price,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ecnuer996.bean.Site">
+    insert into site
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="venueId != null">
+        venue_id,
+      </if>
+      <if test="intruction != null">
+        intruction,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null">
+        #{venueId,jdbcType=INTEGER},
+      </if>
+      <if test="intruction != null">
+        #{intruction,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ecnuer996.bean.Site">
+    update site
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="venueId != null">
+        venue_id = #{venueId,jdbcType=INTEGER},
+      </if>
+      <if test="intruction != null">
+        intruction = #{intruction,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ecnuer996.bean.Site">
+    update site
+    set name = #{name,jdbcType=VARCHAR},
+      venue_id = #{venueId,jdbcType=INTEGER},
+      intruction = #{intruction,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

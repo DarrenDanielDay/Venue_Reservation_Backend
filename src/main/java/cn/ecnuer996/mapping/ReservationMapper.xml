@@ -26,7 +26,7 @@
     select
     <include refid="Base_Column_List" />
     from reservation
-    where id = #{user_id,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <select id="selectBySiteIdAndDate" resultMap="BaseResultMap">
     select

@@ -14,7 +14,7 @@ public interface ReservationMapper {
 
     Reservation selectByPrimaryKey(Integer id);
 
-    List<Reservation> selectByUserId(Integer id);
+    List<Reservation> selectByUserId(Integer userId);
 
     List<Reservation> selectBySiteIdAndDate(int siteId, Date date);
 
