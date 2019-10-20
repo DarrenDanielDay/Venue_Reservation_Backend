@@ -34,6 +34,10 @@ public class VenueService {
 
     final static int ReservationPeriod=30; // 预定的最小时间单元，单位为分钟
 
+    public Venue getVenueById(int id) {
+        return venueDao.selectByPrimaryKey(id);
+    }
+
     public ArrayList<Venue> getVenueByName(String name){
         return venueDao.selectByVenueName(name);
     }

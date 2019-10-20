@@ -1,11 +1,9 @@
 package cn.ecnuer996.controller;
 
-import cn.ecnuer996.bean.Reservation;
-import cn.ecnuer996.bean.Site;
-import cn.ecnuer996.bean.User;
-import cn.ecnuer996.bean.Venue;
+import cn.ecnuer996.bean.*;
 import cn.ecnuer996.service.ReservationService;
 import cn.ecnuer996.service.UserService;
+import cn.ecnuer996.service.SiteService;
 import cn.ecnuer996.service.VenueService;
 import cn.ecnuer996.transfer.ReservationDetail;
 import com.alibaba.fastjson.JSONObject;
@@ -28,6 +26,8 @@ public class ReservationController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private SiteService siteService;
     @Autowired
     private VenueService venueService;
     @Autowired
@@ -123,23 +123,42 @@ public class ReservationController {
         return response;
     }
 
-    @RequestMapping(value="/orders",method=RequestMethod.POST)
-    public JSONObject searchOrders(@RequestBody JSONObject postBody) {
+    @RequestMapping(value="/orders")
+    public JSONObject searchOrders(HttpServletRequest request) {
         JSONObject response = new JSONObject();
-        int userId = postBody.getInteger("id");
+        int userId = Integer.parseInt(request.getParameter("id"));
         User user = userService.getUserById(userId);
         if(user.getId() < 0){
             response.put("code",250);
-            response.put("results","illegal userId");
             response.put("message","你传了个假用户,拒绝");
         }
         else{
             List<Reservation> reservations = reservationService.getReservationByUserId(userId);
             response.put("code",200);
-            response.put("result",reservations);
             response.put("messages","查询成功");
+            ArrayList<MyReservation> result = new ArrayList<>();
+            MyReservation item = new MyReservation();
+            int len = reservations.size();
+            for(int i = 0; i < len; i++) {
+                Reservation reservation = reservations.get(i);
+                Site site = siteService.getSiteById(reservation.getSiteId());
+                /* Calculate Element Value Begin */
+                item.venue_id = site.getVenueId();
+                item.venue_name = venueService.getVenueById(item.venue_id).getName();
+                item.site_id = site.getId();
+                item.site_name = site.getName();
+                item.book_time = reservation.getBookTime();
+                item.date = reservation.getDate();
+                item.cost = reservation.getCost();
+                item.begin_time = reservation.getBeginTime();
+                item.end_time = reservation.getEndTime();
+                item.state = reservation.getState();
+                item.comment = reservation.getComment();
+                /* Calculate Element Value Finish */
+                result.add(item);
+            }
+            response.put("result",result);
         }
         return response;
     }
-
 }

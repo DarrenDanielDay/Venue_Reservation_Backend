@@ -1,6 +1,5 @@
 package cn.ecnuer996.bean;
-
-import java.util.Date;
+import java.util.*;
 
 public class MyReservation {
     public int venue_id;
