@@ -78,19 +78,25 @@ public class ReservationController {
         int userId=postBody.getInteger("userId");
         String date=postBody.getString("bookDate");
         int beginPeriod=postBody.getInteger("beginPeriod");
-        int endPeriod=postBody.getInteger("endPeriod")+1; // 数据库中的endPeriod是不算在预定时段里的，所以要加一
+        int endPeriod=postBody.getInteger("endPeriod");
         JSONObject response=new JSONObject();
         // 验证想预约的时段是否已被预约
         try{
             SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+0")); //mysql时区问题尚未解决，只能将日期按照GMT+0时区解析
             Date realDate=formatter.parse(date);
-            List<Boolean> bookList=venueService.getReservationsBySiteIdAndDate(siteId,realDate);
+            int[] bookList=venueService.getReservationsBySiteIdAndDate(siteId,realDate);
             for(int i=beginPeriod;i<endPeriod;++i){
-                if(!bookList.get(i)){ //时段已被预约
-                    response.put("code",500);
-                    response.put("message","您所选的时段已被预约，请重新选择预约时间！");
-                    return response;
+                if(bookList[i]!=0){ //时段不可预约
+                    if(bookList[i]==1){
+                        response.put("code",500);
+                        response.put("message","您所选的时段已被预约，请重新选择预约时间！");
+                        return response;
+                    }else{
+                        response.put("code",500);
+                        response.put("message","您所选的时段处于闭馆时间，请重新选择预约时间！");
+                        return response;
+                    }
                 }
             }
             Date bookTime=new Date();

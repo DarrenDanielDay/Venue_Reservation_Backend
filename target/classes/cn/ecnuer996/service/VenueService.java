@@ -97,25 +97,42 @@ public class VenueService {
 
         Site site=siteDao.selectByPrimaryKey(siteId);
         Venue venue=venueDao.selectByPrimaryKey(site.getVenueId());
-        int minutes=(int)((venue.getEndTime().getTime()-venue.getBeginTime().getTime())/60000);
+//        int minutes=(int)((venue.getEndTime().getTime()-venue.getBeginTime().getTime())/60000);
+
         int beginMinutes=(int)((((venue.getBeginTime().getTime())/60000)%1440));
-        //int beginMinutes=420;
+        int endMinutes=(int)((((venue.getEndTime().getTime())/60000)%1440));
+        int beginId=beginMinutes/ReservationPeriod;
+        int endId=endMinutes/ReservationPeriod;
 
-        boolean[] timeList=new boolean[minutes/ReservationPeriod]; //标记各时段是否被预约
-        for(int i=0;i<timeList.length;++i)
-            timeList[i]=true;
-
+        int[] bookableList=new int[48];
+        for(int i=0;i<bookableList.length;++i){
+            bookableList[i]=-1;
+        }
+        for(int i=beginId;i<endId;++i){
+            bookableList[i]=0;
+        }
         for(Reservation r:reservations){
-            for(int i=r.getBeginTime();i<r.getEndTime();++i){
-                timeList[i]=false; // 标记此时段已被预约
+            for(int i=r.getBeginTime();i<=r.getEndTime();++i){
+                bookableList[i]=1; // 标记此时段已被预约
             }
         }
+
+//        boolean[] timeList=new boolean[minutes/ReservationPeriod]; //标记各时段是否被预约
+//        for(int i=0;i<timeList.length;++i)
+//            timeList[i]=true;
+//
+//        for(Reservation r:reservations){
+//            for(int i=r.getBeginTime();i<r.getEndTime();++i){
+//                timeList[i]=false; // 标记此时段已被预约
+//            }
+//        }
         JSONObject ret=new JSONObject();
         List<JSONObject> siteTimes=new ArrayList<JSONObject>();
-        for(int i=0;i<timeList.length;++i){
+        for(int i=0;i<bookableList.length;++i){
             JSONObject siteTime=new JSONObject();
-            siteTime.put("period",printPeriod(beginMinutes,i));
-            siteTime.put("bookable",timeList[i]);
+//            siteTime.put("period",printPeriod(beginMinutes,i));
+            siteTime.put("period",simplePrintPeriod(i));
+            siteTime.put("bookable",bookableList[i]);
             siteTime.put("periodId",i);
             siteTimes.add(siteTime);
         }
@@ -124,24 +141,42 @@ public class VenueService {
         return ret;
     }
 
-    // 根据要预定的场地ID和日期返回一个不二列表表示各时段是否可预约
-    public List<Boolean> getReservationsBySiteIdAndDate(int siteId,Date date){
+    // 根据要预定的场地ID和日期返回一个布尔值列表表示各时段是否可预约
+    public int[] getReservationsBySiteIdAndDate(int siteId,Date date){
         List<Reservation> reservations=reservationDao.selectBySiteIdAndDate(siteId,date);
-        //reservations.sort(new ReservationComparator()); // 按照预约开始时段给所有预约升序排序
         Site site=siteDao.selectByPrimaryKey(siteId);
         Venue venue=venueDao.selectByPrimaryKey(site.getVenueId());
-        int minutes=(int)((venue.getEndTime().getTime()-venue.getBeginTime().getTime())/60000); // 场馆开馆的分钟数
+//        int minutes=(int)((venue.getEndTime().getTime()-venue.getBeginTime().getTime())/60000); // 场馆开馆的分钟数
 
-        List<Boolean> timeList=new ArrayList<>(); //标记各时段是否被预约
-        for(int i=0;i<minutes/ReservationPeriod;++i)
-            timeList.add(true);
+        int beginMinutes=(int)((((venue.getBeginTime().getTime())/60000)%1440));
+        int endMinutes=(int)((((venue.getEndTime().getTime())/60000)%1440));
+        int beginId=beginMinutes/ReservationPeriod;
+        int endId=endMinutes/ReservationPeriod;
 
+        int[] bookableList=new int[48];
+        for(int i=0;i<bookableList.length;++i){
+            bookableList[i]=-1;
+        }
+        for(int i=beginId;i<endId;++i){
+            bookableList[i]=0;
+        }
         for(Reservation r:reservations){
             for(int i=r.getBeginTime();i<r.getEndTime();++i){
-                timeList.set(i,false); // 标记此时段已被预约
+                bookableList[i]=1; // 标记此时段已被预约
             }
         }
-        return timeList;
+        return bookableList;
+
+//        List<Boolean> timeList=new ArrayList<>(); //标记各时段是否被预约
+//        for(int i=0;i<minutes/ReservationPeriod;++i)
+//            timeList.add(true);
+
+//        for(Reservation r:reservations){
+//            for(int i=r.getBeginTime();i<r.getEndTime();++i){
+//                timeList.set(i,false); // 标记此时段已被预约
+//            }
+//        }
+//        return timeList;
     }
 
     public Float calculatePrice(int siteId,int periodNum){
@@ -171,9 +206,11 @@ public class VenueService {
         reservationDetail.setReserveDate(dateFormatter.format(latestReservation.getDate()));
         reservationDetail.setState(ReservationState.states.get(latestReservation.getSiteId()));
 
-        int beginMinutes=(int)((((venue.getBeginTime().getTime())/60000)%1440));
-        reservationDetail.setBeginTime(printTime(beginMinutes,latestReservation.getBeginTime()));
-        reservationDetail.setEndTime(printTime(beginMinutes,latestReservation.getEndTime()));
+//        int beginMinutes=(int)((((venue.getBeginTime().getTime())/60000)%1440));
+//        reservationDetail.setBeginTime(printTime(beginMinutes,latestReservation.getBeginTime()));
+//        reservationDetail.setEndTime(printTime(beginMinutes,latestReservation.getEndTime()));
+        reservationDetail.setBeginTime(simplePrintPeriod(latestReservation.getBeginTime()));
+        reservationDetail.setEndTime(simplePrintPeriod(latestReservation.getEndTime()+1));
 
         return reservationDetail;
         //return reservationDao.selectLatestReservationByUserId(userId);
@@ -208,6 +245,20 @@ public class VenueService {
 //        int endHour=endMins/60;
 //        int endMin=endMins%60;
 //        return hour+":"+min+"~"+endHour+":"+endMin;
+    }
+
+    private String simplePrintPeriod(int periodId){
+        if(periodId%2==0){
+            if(periodId/2<10)
+                return "0"+(periodId/2)+":00";
+            else
+                return (periodId/2)+":00";
+        }else{
+            if(periodId/2<10)
+                return "0"+(periodId/2)+":30";
+            else
+                return (periodId/2)+":30";
+        }
     }
 
 //    class ReservationComparator implements Comparator<Reservation>{
