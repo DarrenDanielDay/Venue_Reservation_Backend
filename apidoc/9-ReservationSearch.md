@@ -19,12 +19,12 @@ id   |  用户id
     "siteName":"篮球场1",
     "siteImage":"https://ecnuer996.cn/images/site-images/1basketball1.jpg",
     "venueName":"大学生活动中心",
-    "bookTime":"Sun Oct 20 14:05:43 CST 2019",
-    "reserveDate":"Fri Oct 25 08:00:00 CST 2019",
-    "cost":30.0,
-    "beginTime":"14",
-    "endTime":"15",
-    "state":"1"
+    "bookTime":"2019-10-20 13:58:05",
+    "reserveDate":"2019-10-25",
+    "cost":120,
+    "beginTime":"18",
+    "endTime":"23",
+    "state":"未开始"
   },
   "message": "查询成功"
 }

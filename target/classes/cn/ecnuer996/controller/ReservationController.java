@@ -6,6 +6,7 @@ import cn.ecnuer996.service.UserService;
 import cn.ecnuer996.service.SiteService;
 import cn.ecnuer996.service.VenueService;
 import cn.ecnuer996.transfer.ReservationDetail;
+import cn.ecnuer996.util.ReservationState;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +35,15 @@ public class ReservationController {
     private ReservationService reservationService;
 
     String urlPrefix="https://ecnuer996.cn/images";
+
+    /* Change Date To String Begin */
+    private String DateToDate(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+    private String DateToTime(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+    }
+    /* Change Date To String Finish */
 
     @RequestMapping(value="/venue")
     public ArrayList<Venue> getVenues(HttpServletRequest request){
@@ -139,21 +149,21 @@ public class ReservationController {
             response.put("code",200);
             response.put("messages","≤È—Ø≥…π¶");
             ArrayList<ReservationDetail> result = new ArrayList<>();
-            ReservationDetail item = new ReservationDetail();
             int len = reservations.size();
             for(int i = 0; i < len; i++) {
                 Reservation reservation = reservations.get(i);
+                ReservationDetail item = new ReservationDetail();
                 Site site = siteService.getSiteById(reservation.getSiteId());
                 /* Calculate Element Value Begin */
                 item.setSiteName(site.getName());
                 item.setSiteImage(urlPrefix + site.getImage());
                 item.setVenueName(venueService.getVenueById(site.getVenueId()).getName());
-                item.setBookTime(reservation.getBookTime().toString());
-                item.setReserveDate(reservation.getDate().toString());
+                item.setBookTime(DateToTime(reservation.getBookTime()));
+                item.setReserveDate(DateToDate(reservation.getDate()));
                 item.setCost(reservation.getCost());
                 item.setBeginTime(reservation.getBeginTime().toString());
-                item.setEndTime(reservation.getEndTime().toString());
-                item.setState(reservation.getState().toString());
+                item.setEndTime(String.valueOf(Integer.parseInt(reservation.getEndTime().toString()) + 1));
+                item.setState(ReservationState.states.get(reservation.getState()));
                 /* Calculate Element Value Finish */
                 result.add(item);
             }
@@ -161,4 +171,5 @@ public class ReservationController {
         }
         return response;
     }
+
 }
