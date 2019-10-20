@@ -251,7 +251,7 @@ public class VenueService {
 //        return hour+":"+min+"~"+endHour+":"+endMin;
     }
 
-    private String simplePrintPeriod(int periodId){
+    public String simplePrintPeriod(int periodId){
         if(periodId%2==0){
             if(periodId/2<10)
                 return "0"+(periodId/2)+":00";

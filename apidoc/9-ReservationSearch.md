@@ -2,7 +2,7 @@
 ### 1.1 功能描述
 查询一个用户的所有历史订单
 ### 1.2 请求说明
-> 请求方式: POST
+> 请求方式: GET
   请求URL: [/orders](https://ecnuer996.cn/MeetHere/api/orders)
 ### 1.3 请求参数
 #### 1.3.1 参数解释

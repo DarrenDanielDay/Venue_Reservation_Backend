@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -161,8 +162,8 @@ public class ReservationController {
                 item.setBookTime(DateToTime(reservation.getBookTime()));
                 item.setReserveDate(DateToDate(reservation.getDate()));
                 item.setCost(reservation.getCost());
-                item.setBeginTime(reservation.getBeginTime().toString());
-                item.setEndTime(String.valueOf(Integer.parseInt(reservation.getEndTime().toString()) + 1));
+                item.setBeginTime(venueService.simplePrintPeriod(reservation.getBeginTime()));
+                item.setEndTime(venueService.simplePrintPeriod(reservation.getEndTime() + 1));
                 item.setState(ReservationState.states.get(reservation.getState()));
                 /* Calculate Element Value Finish */
                 result.add(item);
