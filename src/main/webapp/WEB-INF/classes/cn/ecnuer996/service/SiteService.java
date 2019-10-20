@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service("SiteService")
 public class SiteService {
-
     @Autowired
     private SiteMapper siteDao;
 
-    public Site getSiteById(int siteId) {
-        return siteDao.selectByPrimaryKey(siteId);
+    public Site getSiteById(int id) {
+        return siteDao.selectByPrimaryKey(id);
     }
-
 }

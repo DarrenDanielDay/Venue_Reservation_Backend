@@ -16,16 +16,15 @@ id   |  用户id
 {
   "code": 200,
   "result": {
-    "id": 1,
-    "site_id": 1,
-    "user_id": 10000,
-    "book_time": "2019-10-13 14:14:18",
-    "date": "2019-10-20",
-    "cost": 90,
-    "begin_time": 0,
-    "end_time": 3,
-    "state": 1,
-    "comment": null
+    "siteName":"篮球场1",
+    "siteImage":"https://ecnuer996.cn/images/site-images/1basketball1.jpg",
+    "venueName":"大学生活动中心",
+    "bookTime":"Sun Oct 20 14:05:43 CST 2019",
+    "reserveDate":"Fri Oct 25 08:00:00 CST 2019",
+    "cost":30.0,
+    "beginTime":"14",
+    "endTime":"15",
+    "state":"1"
   },
   "message": "查询成功"
 }
@@ -34,7 +33,6 @@ id   |  用户id
 ````json
 {
   "code": 250,
-  "result": "illegal userId",
   "message": "你传了个假用户,拒绝"
 }
 ````

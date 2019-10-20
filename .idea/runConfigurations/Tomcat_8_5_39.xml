@@ -53,17 +53,22 @@
     <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
       <option name="USE_ENV_VARIABLES" value="true" />
       <STARTUP>
-        <option name="USE_DEFAULT" value="true" />
-        <option name="SCRIPT" value="" />
+        <option name="USE_DEFAULT" value="false" />
+        <option name="SCRIPT" value="D:/Tomcat/apache-tomcat-8.5.46/bin/catalina.bat" />
         <option name="VM_PARAMETERS" value="" />
-        <option name="PROGRAM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="run" />
       </STARTUP>
       <SHUTDOWN>
-        <option name="USE_DEFAULT" value="true" />
-        <option name="SCRIPT" value="" />
+        <option name="USE_DEFAULT" value="false" />
+        <option name="SCRIPT" value="D:/Tomcat/apache-tomcat-8.5.46/bin/catalina.bat" />
         <option name="VM_PARAMETERS" value="" />
-        <option name="PROGRAM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="stop" />
       </SHUTDOWN>
+      <EnvironmentVariables>
+        <option name="NAME" value="CATALINA_BASE" />
+        <option name="VALUE" value="D:\Tomcat\apache-tomcat-8.5.46\" />
+        <option name="IS_PREDEFINED" value="false" />
+      </EnvironmentVariables>
     </ConfigurationWrapper>
     <method v="2">
       <option name="Make" enabled="true" />
